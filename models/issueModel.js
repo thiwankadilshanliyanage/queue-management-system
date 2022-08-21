@@ -1,14 +1,18 @@
 module.exports = (sequelize, DataTypes) =>{
-    const Counter = sequelize.define("counter",{
-        counter_id: {
+    const Issue = sequelize.define("issue",{
+        issue_id: {
             type: DataTypes.INTEGER,
             primaryKey:true,    
         },
-        counter_name: {
+        issue: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        issue_id: {
+        issue_type_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -16,7 +20,7 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.INTEGER,
             allowNull: false
         } ,
-        user_id: {
+        queue_no: {
             type: DataTypes.INTEGER,
             allowNull: false
         }
@@ -25,5 +29,5 @@ module.exports = (sequelize, DataTypes) =>{
         timestamps: false 
     })
 
-    return Counter
+    return Issue
 }

@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) =>{
-    const Counter = sequelize.define("counter",{
-        counter_id: {
+    const Notification = sequelize.define("notification",{
+        notification_id: {
             type: DataTypes.INTEGER,
             primaryKey:true,    
         },
-        counter_name: {
+        notification: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        status: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        } ,
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -25,5 +21,5 @@ module.exports = (sequelize, DataTypes) =>{
         timestamps: false 
     })
 
-    return Counter
+    return Notification
 }
