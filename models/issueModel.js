@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) =>{
         queue_no: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },counter_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },
     { 

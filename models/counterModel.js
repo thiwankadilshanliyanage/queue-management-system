@@ -8,10 +8,6 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.STRING,
             allowNull: false
         },
-        issue_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         status: {
             type: DataTypes.INTEGER,
             allowNull: false
