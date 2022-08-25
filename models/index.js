@@ -19,7 +19,6 @@ const sequelize = new Sequelize(
         }
     }
 )
-
 //Authunticate to db throug seulize
 sequelize.authenticate()
 .then(()=>{
@@ -36,16 +35,19 @@ db.sequelize = sequelize
 //assign models to db table
 db.counters = require('./counterModel.js')(sequelize,DataTypes)
 db.issues = require('./issueModel.js')(sequelize,DataTypes)
-db.issue_types = require('./issue_typeModel')(sequelize,DataTypes)
+db.issue_types = require('./issue_typeModel.js')(sequelize,DataTypes)
 db.notifications = require('./notificationModel.js')(sequelize,DataTypes)
 db.roles = require('./roleModel.js')(sequelize,DataTypes)
 db.users = require('./userModel.js')(sequelize,DataTypes)
 
 //syncronize db tables
+
+    
 db.sequelize.sync({force:false})
 .then(()=>{
     console.log("sync-done")
 })
+
 
 //relationships(foreignkey)
 

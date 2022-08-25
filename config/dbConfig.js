@@ -2,7 +2,7 @@ module.exports = {
     HOST:'localhost',
     USER:'root',
     PASSWORD:'thiwanka123',
-    DB:'queue_management_system',
+    DB:'queuemangement',
     dialect:'mysql',
 
     pool: {

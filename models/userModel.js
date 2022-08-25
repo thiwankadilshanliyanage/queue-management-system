@@ -2,7 +2,9 @@ module.exports = (sequelize, DataTypes)=>{
     const User = sequelize.define("user",{
         user_id:{
             type:DataTypes.INTEGER,
-            primaryKey:true
+            primaryKey:true,
+            autoIncrement: true,
+            allowNull: false
         },
         name:{
             type: DataTypes.STRING,
@@ -23,7 +25,6 @@ module.exports = (sequelize, DataTypes)=>{
     },
     {
         timestamps:false
-    }
-    )
+    })
     return User
 }

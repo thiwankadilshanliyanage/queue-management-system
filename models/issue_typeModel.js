@@ -3,8 +3,9 @@ module.exports = (sequelize, DataTypes) =>{
         issue_type_id: {
             type: DataTypes.INTEGER,
             primaryKey:true,  
+            autoIncrement: true,
+            allowNull: false
         },
-        
         issue_type: {
             type: DataTypes.STRING,
             allowNull: false 

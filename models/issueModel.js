@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) =>{
         issue_id: {
             type: DataTypes.INTEGER,
             primaryKey:true,    
+            autoIncrement: true,
+            allowNull: false
         },
         issue: {
             type: DataTypes.STRING,
