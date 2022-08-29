@@ -19,10 +19,12 @@ app.use(cookieParser())
 //routes
 const roleRouter = require('./routes/roleRouter.js')
 const regiRouter = require('./routes/registerRouter.js')
+const loginRouter = require('./routes/loginRouter.js')
 
 //use routes
 app.use('/',roleRouter)
 app.use('/register',regiRouter)
+app.use('/login',loginRouter)
 
 //server running on
 app.listen(PORT, () => {

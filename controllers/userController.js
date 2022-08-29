@@ -18,7 +18,7 @@ const maxAge = 3 * 24 * 60 * 60
 
 //register new user
 const registerUser = async (req,res)=>{
-    const {name,contact,email,password,confirmPassword,role_id} = req.body
+    const {name,contact,email,password,confirmPassword,role_id} = req.body //postman fields
 
     //email validate
     if(!emailValidator.validate(email))
@@ -58,7 +58,7 @@ const registerUser = async (req,res)=>{
                 email: email,
                 password:hashedPwd,
                 role_id:role_id
-            },{fields:['name','contact','email','password','role_id']})
+            },{fields:['name','contact','email','password','role_id']})// db fields
             return res.status(200).json({'message': 'Register Successful'})
         } catch (error) {
             return res.status(500).send({ message : error.message })
@@ -66,6 +66,43 @@ const registerUser = async (req,res)=>{
     }
 }
 
+//login user
+const UserLogin = async (req,res) =>{
+    const {email, password} = req.body
+
+    //email validate
+    if(!emailValidator.validate(email))
+    return res.status(400).send({message:'email is not validate'})
+    
+    //email & password required
+    if(!email || !password)
+    return res.status(400).json({'message':'Email and Pasword are required'})
+
+    const foundUser = await User.findOne({
+        where: {
+            email : email
+        }
+    })
+    if(!foundUser)
+    return res.status(400).json({message:'User Detail Invalid'})
+    else{
+        const match = await bcrypt.compare(password, foundUser.password);
+        if(match){
+            const token = accessToken(foundUser.email)
+            res.cookie('jwt',token,{httpOnly:true, maxAge: maxAge*1000})
+            res.status(200).send({message:'login success','access-token':token})  
+        }else{ 
+            res.status(400).json({'message': 'Email and Password do not match'})
+        }
+    }
+}
+//Generate access token
+const accessToken = (email) => {
+    return jwt.sign({email},process.env.TOKEN_SECRET,{ expiresIn : maxAge })
+}
+
+
 module.exports = {
-    registerUser
+    registerUser,
+    UserLogin
 }
