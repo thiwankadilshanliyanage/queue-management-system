@@ -69,6 +69,7 @@ const registerUser = async (req,res)=>{
 //login user
 const UserLogin = async (req,res) =>{
     const {email, password} = req.body
+    const role = 1
 
     //email validate
     if(!emailValidator.validate(email))
@@ -83,14 +84,43 @@ const UserLogin = async (req,res) =>{
             email : email
         }
     })
+
+    
     if(!foundUser)
     return res.status(400).json({message:'User Detail Invalid'})
     else{
         const match = await bcrypt.compare(password, foundUser.password);
+        
         if(match){
+            if(role == foundUser.role_id){
             const token = accessToken(foundUser.email)
             res.cookie('jwt',token,{httpOnly:true, maxAge: maxAge*1000})
-            res.status(200).send({message:'login success','access-token':token})  
+            res.status(200).send({message:'login success! Now you are Normal user','access-token':token})  }
+            else{
+                const foundOnlineCounter = await Counter.findOne({
+                    where:{
+                        status: 0
+                    }
+                })
+                if(!foundOnlineCounter){
+                    return res.status(500).send({message:'No counters available'})
+                }
+                const updateCounter = await Counter.update({
+                    status : 1,
+                    user_id: foundUser.user_id
+                },{
+                    where:{
+                        counter_id:foundOnlineCounter.counter_id
+                    }
+                }
+                
+                )
+                foundOnlineCounter.status = 1
+                const counter = foundOnlineCounter
+                const token = accessToken(foundUser.email)
+                res.cookie('jwt',token,{httpOnly:true, maxAge: maxAge*1000})
+                res.status(200).send({message:'login success! Now you are Counter user','access-token':token,'your counter is': counter})
+            }
         }else{ 
             res.status(400).json({'message': 'Email and Password do not match'})
         }
