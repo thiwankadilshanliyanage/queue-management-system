@@ -1,6 +1,6 @@
 //imports
 const db = require('../models')
-const { sequelize, Sequelize, categories } = require('../models')
+const { sequelize, Sequelize } = require('../models')
 
 //main model
 const IssueType = db.issue_types
@@ -13,7 +13,7 @@ const normalUsersHomePage = async (req,res) =>{
     let email
 
     try {
-        email = req.email
+        email = req.email.email
     } catch (error) {
         console.log(error);
         return res.status(400).send({ message : 'Error'})
@@ -22,6 +22,7 @@ const normalUsersHomePage = async (req,res) =>{
 
     const foundUser = await Users.findOne({
         where:{
+            email:email,
             role_id:1
         }
     })

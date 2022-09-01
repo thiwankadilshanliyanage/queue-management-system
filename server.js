@@ -22,7 +22,8 @@ const roleRouter = require('./routes/roleRouter.js')
 const regiRouter = require('./routes/registerRouter.js')
 const loginRouter = require('./routes/loginRouter.js')
 const logoutRouter = require('./routes/normalUserLogoutRouter.js')
-const issueTypeRouter = require('./routes/issueTypeRouter.js')
+const counterUserLogout = require('./routes/counterUserLogoutRouter.js')
+const normalUserHome = require('./routes/normalUserHomeRouter.js')
 const { format } = require('mysql2')
 
 //use routes
@@ -30,7 +31,8 @@ app.use('/',roleRouter)
 app.use('/register',regiRouter)
 app.use('/login',loginRouter)
 app.use('/logout',logoutRouter)
-app.use('/home',JWTverify,issueTypeRouter)
+app.use('/counterlogout',JWTverify,counterUserLogout)
+app.use('/home',JWTverify,normalUserHome)
 
 //server running on
 app.listen(PORT, () => {

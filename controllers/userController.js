@@ -119,7 +119,7 @@ const UserLogin = async (req,res) =>{
                 const counter = foundOnlineCounter
                 const token = accessToken(foundUser.email)
                 res.cookie('jwt',token,{httpOnly:true, maxAge: maxAge*1000})
-                res.status(200).send({message:'login success! Now you are Counter user','access-token':token,'your counter is': counter})
+                res.status(200).send({message:'login success! Now you are Counter user','access-token':token,'your counter is': counter.counter_name})
             }
         }else{ 
             res.status(400).json({'message': 'Email and Password do not match'})

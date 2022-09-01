@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) =>{
         },
         status: {
             type: DataTypes.INTEGER,
+            defaultValue:0,
             allowNull: false
         } ,
         queue_no: {
